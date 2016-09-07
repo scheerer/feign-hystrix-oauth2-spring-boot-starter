@@ -1,9 +1,11 @@
 package com.nextgearcapital.feign.oauth2.autoconfigure;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration;
+import org.springframework.boot.test.util.EnvironmentTestUtils;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Map;
 
@@ -15,10 +17,15 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author russell.scheerer
  */
 public class OAuth2FeignAutoConfigurationTest {
-    private ConfigurableApplicationContext context;
+    private AnnotationConfigApplicationContext context;
+
+    @Before
+    public void setup() {
+        this.context = new AnnotationConfigApplicationContext();
+    }
 
     @After
-    public void after() {
+    public void close() {
         if (this.context != null) {
             this.context.close();
         }
@@ -26,14 +33,31 @@ public class OAuth2FeignAutoConfigurationTest {
 
     @Test
     public void oAuth2FeignRequestInterceptorIsAutoconfiguredInApplicationContexts() {
-        this.context = new AnnotationConfigWebApplicationContext();
-        ((AnnotationConfigWebApplicationContext) this.context)
-                .register(OAuth2FeignAutoConfiguration.class);
-        this.context.refresh();
-//        ((AnnotationConfigWebApplicationContext) this.context)
-//                .setServletContext(new MockServletContext());
+        load("feign.oauth2.passthrough.enabled:true");
+
         Map<String, OAuth2FeignRequestInterceptor> beans = this.context
                 .getBeansOfType(OAuth2FeignRequestInterceptor.class);
         assertThat(beans).hasSize(1);
+    }
+
+    @Test
+    public void oAuth2FeignRequestInterceptorIsAutoconfiguredInApplicationContextsWhenPropertyIsTrue() {
+        load("feign.oauth2.passthrough.enabled:true");
+        Map<String, OAuth2FeignRequestInterceptor> beans = this.context
+                .getBeansOfType(OAuth2FeignRequestInterceptor.class);
+        assertThat(beans).hasSize(1);
+    }
+
+    private void load(String... environment) {
+        this.context = doLoad(environment);
+    }
+
+    private AnnotationConfigApplicationContext doLoad(String... environment) {
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
+        EnvironmentTestUtils.addEnvironment(applicationContext, environment);
+        applicationContext.register(OAuth2FeignAutoConfiguration.class,
+                PropertyPlaceholderAutoConfiguration.class);
+        applicationContext.refresh();
+        return applicationContext;
     }
 }
