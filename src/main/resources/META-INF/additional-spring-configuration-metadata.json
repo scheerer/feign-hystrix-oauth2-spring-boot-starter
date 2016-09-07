@@ -1,0 +1,10 @@
+{
+  "properties": [
+    {
+      "name": "feign.oauth2.passthrough.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Should Feign attempt to grab current SecurityContext Bearer token and passthrough to other services.",
+      "defaultValue": true
+    }
+  ]
+}
