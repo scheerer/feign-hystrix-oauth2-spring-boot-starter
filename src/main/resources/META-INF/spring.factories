@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.nextgearcapital.feign.oauth2.autoconfigure.OAuth2FeignAutoConfiguration,\
+com.nextgearcapital.feign.oauth2.autoconfigure.hystrix.HystrixSecurityContextAutoConfiguration
