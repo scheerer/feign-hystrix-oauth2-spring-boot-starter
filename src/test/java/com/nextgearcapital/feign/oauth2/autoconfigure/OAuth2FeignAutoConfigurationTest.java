@@ -48,6 +48,14 @@ public class OAuth2FeignAutoConfigurationTest {
         assertThat(beans).hasSize(1);
     }
 
+    @Test
+    public void oAuth2FeignRequestInterceptorIsNotAutoconfiguredInApplicationContextsWhenPropertyIsFalse() {
+        load("feign.oauth2.passthrough.enabled:false");
+        Map<String, OAuth2FeignRequestInterceptor> beans = this.context
+                .getBeansOfType(OAuth2FeignRequestInterceptor.class);
+        assertThat(beans).hasSize(0);
+    }
+
     private void load(String... environment) {
         this.context = doLoad(environment);
     }

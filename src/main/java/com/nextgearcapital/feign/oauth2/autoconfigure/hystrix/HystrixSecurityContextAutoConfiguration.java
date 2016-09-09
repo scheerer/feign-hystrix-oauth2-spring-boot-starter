@@ -3,6 +3,7 @@ package com.nextgearcapital.feign.oauth2.autoconfigure.hystrix;
 import com.netflix.hystrix.HystrixCommand;
 import feign.hystrix.HystrixFeign;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -20,6 +21,7 @@ import javax.servlet.Filter;
  */
 @Configuration
 @ConditionalOnClass({ HystrixCommand.class, HystrixFeign.class })
+@ConditionalOnBean(name = AbstractSecurityWebApplicationInitializer.DEFAULT_FILTER_NAME, value = Filter.class)
 @ConditionalOnProperty(name = "feign.hystrix.enabled", matchIfMissing = true)
 public class HystrixSecurityContextAutoConfiguration {
 
