@@ -1,0 +1,15 @@
+language: java
+jdk:
+  - oraclejdk8
+
+env:
+  global:
+    - SONATYPE_USERNAME=yourusername
+    - secure: "your encrypted SONATYPE_PASSWORD=pass"
+
+cache:
+  directories:
+    - $HOME/.m2
+
+after_success:
+  - mvn deploy --settings settings.xml -DskipTests=true -B
