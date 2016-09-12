@@ -2,7 +2,7 @@ language: java
 jdk:
   - oraclejdk8
 
-script: "[ ${TRAVIS_PULL_REQUEST} = 'false' ] && ./mvnw clean deploy --settings settings.xml || ./mvnw clean verify --settings settings.xml"
+script: "./mvnw clean verify --settings settings.xml"
 
 cache:
   directories:
