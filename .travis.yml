@@ -2,7 +2,7 @@ language: java
 jdk:
   - oraclejdk8
 
-script: "./mvnw verify -e -X -B -U"
+script: "./mvnw deploy --settings settings.xml -e -X -B -U"
 
 cache:
   directories:
