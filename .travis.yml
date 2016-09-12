@@ -12,4 +12,4 @@ cache:
     - $HOME/.m2
 
 after_success:
-  - mvn deploy --settings settings.xml -DskipTests=true -B
+  - ./mvnw deploy --settings settings.xml -DskipTests=true -B
