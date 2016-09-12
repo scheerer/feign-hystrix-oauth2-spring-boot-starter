@@ -2,9 +2,8 @@ language: java
 jdk:
   - oraclejdk8
 
+script: "[ ${TRAVIS_PULL_REQUEST} = 'false' ] && mvn clean deploy --settings settings.xml || mvn clean verify --settings settings.xml"
+
 cache:
   directories:
     - $HOME/.m2
-
-after_success:
-  - ./mvnw deploy --settings settings.xml -DskipTests=true -B
