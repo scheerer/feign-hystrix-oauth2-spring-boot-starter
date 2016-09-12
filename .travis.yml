@@ -2,8 +2,24 @@ language: java
 jdk:
   - oraclejdk8
 
-#script: "./mvnw clean deploy -e -X -B -U"
+env:
+  global:
+    - secure: "the base64 string from when you encrypted OSSRH_JIRA_USERNAME"
+    - # ^^ OSSRH_JIRA_USERNAME
+    - secure: "the base64 string from when you encrypted OSSRH_JIRA_PASSWORD"
+    - # ^^ OSSRH_JIRA_PASSWORD
+    - secure: "the base64 string from when you encrypted GPG_KEY_NAME"
+    - # ^^ GPG_KEY_NAME
+    - secure: "the base64 string from when you encrypted GPG_PASSPHRASE"
+    - # ^^ GPG_PASSPHRASE
 
-#cache:
-#  directories:
-#    - $HOME/.m2
+install: "./mvnw install -P !build-extras -DskipTests=true -Dmaven.javadoc.skip=true -B -V"
+script: "./mvnw test -P !build-extras -B"
+
+cache:
+  directories:
+    - ~/.m2/repository
+
+after_success:
+  - ./cd/before-deploy.sh
+  - ./cd/deploy.sh
