@@ -1,25 +1,18 @@
 language: java
 jdk:
-  - oraclejdk8
-
+- oraclejdk8
 env:
   global:
-    - secure: "the base64 string from when you encrypted OSSRH_JIRA_USERNAME"
-    - # ^^ OSSRH_JIRA_USERNAME
-    - secure: "the base64 string from when you encrypted OSSRH_JIRA_PASSWORD"
-    - # ^^ OSSRH_JIRA_PASSWORD
-    - secure: "the base64 string from when you encrypted GPG_KEY_NAME"
-    - # ^^ GPG_KEY_NAME
-    - secure: "the base64 string from when you encrypted GPG_PASSPHRASE"
-    - # ^^ GPG_PASSPHRASE
-
-install: "./mvnw install -P !build-extras -DskipTests=true -Dmaven.javadoc.skip=true -B -V"
+  - secure: JKhChDbGYITlzHRiS506tJQG7wDpWS4020mE/3S71G4rN3u6+ifQ7BmkkU1rUS9l5Afz+prCfpJoTmgi7wUrUjKWV09M1Ut3l0ihbUownXmZlhdKmzxfuPVYD14xGpTFjtGlU67MXj9Eb0LzA9nd73xdgrjsKiI7qTrMKixfkuNUdnlV0vMGespEA3jk81bBe/tHSaVQNNGF6MNOH+p5FIgRqW8jxoj1TIt3xVm0hhuPPaFPiEV9PpEnbUX+eJvEhADDntTPtc8kB82kN4/KgiULU13Tezy3OUt5byXKNAG9QQ7JniIJFEGrZYvtigaegAvj2fN5Cecpo2DgK5okkJtXgOeODU5WwEdfKYyaoWbVNczlijlYQizStHp6WbGEC8LEo3dMJ2kwuvrwI+5LnvYg9oLRJakIuBIqGRhzO7f85bTXxPxCFlwvSPbJCpJxuuKg3x1LNYC5eztrimYR0M/Fp5G+BaNwYaooCDZ00AIG/Ux5vv4nNk9iwJHbUgVPB9rnrqSUVbCk2Tqc54+CnoO6+T4pyGvjC6G6YxVau8CBSEObd9xi75feUL8zhplbF+YbReD5DzA/b4PXR2JII3DZqEJxlqPlXrkRYOj+SHoyRSNZnLUPM/0jVObgj41wdR66Ql+UlEiXD9piEwB1wIRXJtvMYrQ7hqPe+MGLd5M=
+  - secure: O3IuQWvzIJ9SGhr0rWhCegopANrcK2Q/UoxRVnng6Iicjik1Pd85bB/KkLCM5DCEbpQaI7Qpw+496/7w44XmSqld6hnMJV5KIb6f8tdrqChFmVofAOuRBClG9vg0MlflZRILhCB/K8F3irG++sMjGkrgTTtVt/3OAP1oWOxQD+U91U+0TlWIitgUjUVoUiKFhg5DgqBh/XafjpHsJJuaJBTywlgHMiYpllTz9rNIZdjgikdxmzRUJOjkzX/VyG1ZUQYXJpCnIaZE37Xk5GbIX/E3ztCbAOKn72ASIuiBgPQyvwA1KIwCMmTX2Kur68MAeEZZb4Z5Lu5sBGhjPSeaBeMkK+z/z9Bzg/MwEaiP9P4gPdubRS5EQyHd8+ho3LrXbQ707liBzLa7ITmUXmR9vtjGjYnJGy0HQ/GnpEZFjaNQgVFCxTXivLm92WuhnTKVT6xDdigOltuhFlRrKs5cRjWP/jIr/sZUklNvmIFkk3+/yTjKvN20aYmok/bmM/7gRBv0Ohzz7JE9gE8tLKDqRUwsGEIEsJdN3N6KB5s7ErUl/HlSmlecbuRagWQxJbdjJMTL5WqtMmqbX68YjQ+PUNkvnNW6tvB3Qzrq6H9xphslwx4ZMscUpClxOnDCzEa3VZWHJ9SVMEOu7yzl8M82lvp8y7VJHHLXzaFHbmJVLAg=
+  - secure: Y8y4TASqpIGFxVYk0ng3Cl+dcAYPQ8LHegaqkhsxKh14yomG8AeXYmp3adjTBMGMOifEohVE6Z68BlOsM6/yDUEDtnPFIZnvSHVUu8W4/cejXHfarc5tHWd0lg+d/RGOohjIbgU6Lyf4v5b9LxRX5kGsy/rUn2WHmDslHd8lVvHf0uHSxMIx4kaGD4DmmnCHq0bk1OTinPfqob4icx3r3HQUdNxCUhSDEfEbX+0vsNPWSlQ8HRiIzSAn9OZAd3ML6qbYRG0XPLZX6uflff7v+u9AJUQyrK0PZByeX7tezgGkeH55YnVMZKSnj7XHdyoHG0q39fZxyKPxlJ61A+E3lAG54Ps9ezURzxvCMyDX5dVmIydoOhlrcxFuXvl2ihGsRd0kRdj8LB4egL9NyhmL2qr4yS0n4pw+Cb3oL1aMkFhEak3LiyMwirO2XUvQigd6xDwyHr+MYJJZYzdBt8WPmdeRb6LDRV4Ly+ab5HEfx+EqO/PGKkuVaOB83Lhg8BsKKxvVbEzDMrqG5zn3JGJebupFz0I/8rGyIsSMXNA96A9nF2IddHHB9eRseKS1HKwIlesR9XLRrjg4eBC47cX/RDmEqSQCNDbKKrjughsLMba+tmTXgNYGhQ0FhVXt0H/jZenPv9wg8ffsthHdSisKH4G2ZzHk/ClO78AIKe47g7M=
+  - secure: LUX2K+OfvHuYXpp6T883LC1PmZxOewxTVwOMI4KRcULtxb64jAHVtpBp986u7iTqujTSRcfCX7anLYsHvsnYnKelTWIPq8KDj4l0+qNfSE1XpEWtAr8I4PZTpeKXjeA2RQw6Xk9sESarlW02l2CBNJxshSZ97shzuoq6KqHtwxt4FINnxyE9tvn7BO9CmhiHaW+kN/JliGzLLD7udcM0YKu+u/i1reQcZAAXF6GKfd6W00LR4+NlhGP+FFlgp/o19xPAuMBx1CUN9w7Tkw17ixZGCsSf0ecwSVuaGctee6lXZwZ6mZMWbUOzFkdFyAKUtLF6audQE1tHQeHPru9Dzac7i+CxUa5dQjvPNMISKUFjAGT5MFINw8IGK58wvHN8tXTdT9eL/tbg/2yc26C2BBD/tPQlegB13NqJKh2Mb0GWn3n3oopsAo3YF8juqalWcRoJgK2W51UIwBbFUXrPImyzk+tGjCLS3FCx33lgSwPzY/ceIOCJ84FXvHtyf9Tcdxggbhe+ixD+g0lrVr3tkKFZYRRmyeE0avbTJvL3MtWFBtcwVU9QC29pnC6KuUKyWn9tCJSswAJ3f2W/2v0t4ejgFxrSTevYTA2mWGd4YRE0eF3VeTx/L0gb7SMnrBKKItA7pdMAC0Ks1dJXME7zaexxj8J+6YiPZUecBo7RWaI=
+install: "./mvnw install -P !build-extras -DskipTests=true -Dmaven.javadoc.skip=true
+  -B -V"
 script: "./mvnw test -P !build-extras -B"
-
 cache:
   directories:
-    - ~/.m2/repository
-
+  - "~/.m2/repository"
 after_success:
-  - ./cd/before-deploy.sh
-  - ./cd/deploy.sh
+- "./cd/before-deploy.sh"
+- "./cd/deploy.sh"
