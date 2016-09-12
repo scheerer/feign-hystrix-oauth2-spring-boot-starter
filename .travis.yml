@@ -2,7 +2,7 @@ language: java
 jdk:
   - oraclejdk8
 
-script: "./mvnw clean verify --settings settings.xml"
+script: "./mvnw clean verify"
 
 cache:
   directories:
