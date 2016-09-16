@@ -11,7 +11,7 @@ env:
   - secure: Uj/Msp5yWMhfydmBbDjBfClN3MjHKijY8kHTcJQeIqdtvpZUI/xRSNojTJQ2wQXOrA/IR/xkspKRanpbkj+vtsBqWrR9SE9EKgMsV330w1LAmIjo6oPK8BWZY5tP0I5d/tstndSGQqRUrDJVVSiHu3NZHUW7a47hLUY6lZ0Nf2kDEHw/7Fe7j9s/mfPXJwSbM8eQiGTjmsAz1/fWuLYhB3UlWwiUT9j0g8qEA6ZNZr/a7cD9y9ZRSd2wYpFhKoVrHFQ5jNY6uco02TLc+OUBDJk3/zZEf9wPJX9dKMQvkKh7Ag/I33QS4iv+pndYB024XlwHlKKClTH34rpdQEhF8e4KoSkaGI4ppehrMzosY+P13hftozrCPmvYl9Hma0RvjSQ5znWm64uH39sql8uKLKkceOQygmmncsXN3vBadi0JBkUAL2RXbBr9CugQQGDUlDSL84HGskos58LuYLFroyyviw/JQagl/q0ifWEVS03GnmbUAsoYMdGWGSNg/NbtoCMvsCJ1u51v9+UcL+05wmUZ3WPrvXlcPgbeTz4/pjJf3xcK+p1eC3ZDrZ97vvwp83FXMs/aqWaAfVOjwg5QFQ25a9iiMlHd2rW27rYbbQfbQdDoOAJ7kZO1TNTXzgn0Bu+ilgdbpySd+eBq3AMIquZ4BDyvu4IN88UDq50s/sg=
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get -y install gpgv2
+  - sudo apt-get -y install gnupg2
 install: ./mvnw install -P !build-extras -DskipTests=true -Dmaven.javadoc.skip=true
   -B -V
 script: ./mvnw test -P !build-extras -B
