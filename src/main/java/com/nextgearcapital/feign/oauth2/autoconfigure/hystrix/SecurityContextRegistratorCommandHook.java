@@ -2,6 +2,7 @@ package com.nextgearcapital.feign.oauth2.autoconfigure.hystrix;
 
 import com.netflix.hystrix.HystrixInvokable;
 import com.netflix.hystrix.strategy.executionhook.HystrixCommandExecutionHook;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
@@ -13,7 +14,10 @@ public class SecurityContextRegistratorCommandHook extends HystrixCommandExecuti
 
     @Override
     public <T> void onExecutionStart(HystrixInvokable<T> commandInstance) {
-        SecurityContextHolder.setContext(SecurityContextHystrixRequestVariable.getInstance().get());
+        SecurityContext securityContext = SecurityContextHystrixRequestVariable.getInstance().get();
+        if (securityContext != null) {
+            SecurityContextHolder.setContext(securityContext);
+        }
     }
 
     /**
