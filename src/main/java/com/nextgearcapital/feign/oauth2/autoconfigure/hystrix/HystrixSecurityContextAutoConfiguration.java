@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
 import javax.servlet.Filter;
@@ -20,7 +21,7 @@ import javax.servlet.Filter;
  * @author russell.scheerer
  */
 @Configuration
-@ConditionalOnClass({ HystrixCommand.class, HystrixFeign.class })
+@ConditionalOnClass({ HystrixCommand.class, HystrixFeign.class, SecurityFilterChain.class })
 @ConditionalOnBean(name = AbstractSecurityWebApplicationInitializer.DEFAULT_FILTER_NAME, value = Filter.class)
 @ConditionalOnProperty(name = "feign.hystrix.enabled", matchIfMissing = true)
 public class HystrixSecurityContextAutoConfiguration {
