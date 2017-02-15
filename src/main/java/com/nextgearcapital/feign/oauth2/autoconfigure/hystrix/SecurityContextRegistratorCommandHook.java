@@ -10,7 +10,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 /**
  * A HystrixCommandExecutionHook that makes the Spring SecurityContext available during the execution of HystrixCommands.
  * <p>
- * It extracts the SecurityContext from the SecurityContextHystrixRequestVariable and sets it on the SecurityContextHolder.
+ * It extracts the SecurityContext from the SecurityContextHystrixRequestVariable and sets it on the SecurityContextHolder if it isn't present in current
+ * SecurityContext.
  */
 public class SecurityContextRegistratorCommandHook extends HystrixCommandExecutionHook {
 
@@ -18,34 +19,37 @@ public class SecurityContextRegistratorCommandHook extends HystrixCommandExecuti
 
 	@Override
 	public <T> void onExecutionStart(HystrixInvokable<T> commandInstance) {
-		if (SecurityContextHolder.getContext() == null) {
+		if (SecurityContextHolder.getContext() != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 			SecurityContext securityContext = SecurityContextHystrixRequestVariable.getInstance().get();
 			if (securityContext != null) {
 				SecurityContextHolder.setContext(securityContext);
-				RequestContextHolder.getRequestAttributes()
-						.setAttribute(SECURITY_CONTEXT_SET_BY_SECURITY_CONTEXT_REGISTRATOR_COMMAND_HOOK, true, RequestAttributes.SCOPE_REQUEST);
+				if (RequestContextHolder.getRequestAttributes() != null)
+					RequestContextHolder.getRequestAttributes()
+							.setAttribute(SECURITY_CONTEXT_SET_BY_SECURITY_CONTEXT_REGISTRATOR_COMMAND_HOOK, true, RequestAttributes.SCOPE_REQUEST);
 			}
 		}
 	}
 
 	/**
-	 * Clear the SecurityContext
+	 * Clear the SecurityContext if it was set here
 	 */
 	@Override
 	public <T> void onExecutionSuccess(HystrixInvokable<T> commandInstance) {
-		if (RequestContextHolder.getRequestAttributes()
-				.getAttribute(SECURITY_CONTEXT_SET_BY_SECURITY_CONTEXT_REGISTRATOR_COMMAND_HOOK, RequestAttributes.SCOPE_REQUEST) != null) {
+		if (RequestContextHolder.getRequestAttributes() == null ||
+				RequestContextHolder.getRequestAttributes()
+						.getAttribute(SECURITY_CONTEXT_SET_BY_SECURITY_CONTEXT_REGISTRATOR_COMMAND_HOOK, RequestAttributes.SCOPE_REQUEST) != null) {
 			SecurityContextHolder.clearContext();
 		}
 	}
 
 	/**
-	 * Clear the SecurityContext
+	 * Clear the SecurityContext if it was set here
 	 */
 	@Override
 	public <T> Exception onExecutionError(HystrixInvokable<T> commandInstance, Exception e) {
-		if (RequestContextHolder.getRequestAttributes()
-				.getAttribute(SECURITY_CONTEXT_SET_BY_SECURITY_CONTEXT_REGISTRATOR_COMMAND_HOOK, RequestAttributes.SCOPE_REQUEST) != null) {
+		if (RequestContextHolder.getRequestAttributes() == null ||
+				RequestContextHolder.getRequestAttributes()
+						.getAttribute(SECURITY_CONTEXT_SET_BY_SECURITY_CONTEXT_REGISTRATOR_COMMAND_HOOK, RequestAttributes.SCOPE_REQUEST) != null) {
 			SecurityContextHolder.clearContext();
 		}
 		return e;
